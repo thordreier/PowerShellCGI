@@ -1,4 +1,4 @@
-$baseUri = 'http{0}://{1}:{2}' -f (&{if($env:SERVER_PORT_SECURE){'s'}}), $env:SERVER_NAME, $env:SERVER_PORT
+$baseUri = 'http{0}://{1}:{2}' -f (&{if($env:SERVER_PORT_SECURE -eq '1'){'s'}}), $env:SERVER_NAME, $env:SERVER_PORT
 $currentUri = '{0}{1}{2}' -f $baseUri, $env:PATH_INFO, (&{if($env:QUERY_STRING){'?'+$env:QUERY_STRING}})
 
 if ($env:PATH_INFO -match '^/$')
