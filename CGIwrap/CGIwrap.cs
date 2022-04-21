@@ -34,8 +34,11 @@ namespace CGIwrap
             process.BeginOutputReadLine();
             process.BeginErrorReadLine();
 
+            // For some reason does Console.In.ReadToEnd() not work with data from IIS - the process just hang
+            // That's why we trust CONTENT_LENGTH instead
             for (UInt32 i = 0; i < UInt32.Parse(Environment.GetEnvironmentVariable("CONTENT_LENGTH")); i++)
             {
+                // Yeah, reading one char at a time isn't good for performance - but the whole concept of PowerShell CGI isn't about speed!
                 process.StandardInput.Write((char)Console.In.Read());
             }
 
